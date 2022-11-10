@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
+import SingleReview from '../../SingleReview/SingleReview';
 
 const ServiceDetails = () => {
      const service = useLoaderData();
@@ -9,11 +10,11 @@ const ServiceDetails = () => {
      const {title, position,price,description,img,_id,rating } = service;
 
      useEffect(()=>{
-          fetch(`http://localhost:5000/reviews?email=${user?.email}`)
+          fetch(`http://localhost:5000/reviews?_id=${_id}`)
           .then(res =>res.json())
           .then(data => setReviews(data))
 
-     },[user?.email])
+     },[_id])
 
      return (
           <div className='max-w-screen-lg mx-auto my-3  sm:h-auto'>
@@ -30,12 +31,16 @@ const ServiceDetails = () => {
 
                </section>
                <section>
-                    <div className='w-full flex justify-end p-1 border my-3 rounded'>
+                    <div className='w-full flex justify-between items-center p-1 border my-3 mt-5 rounded'>
+                         <p className='font-bold px-2'>Reviews</p>
                          <Link to={`/addReview/${_id}`}><button className='btn btn-warning'>Add review</button></Link>
                     </div>
                     <div>
                          {
-                              reviews.map(review => <p>{review.review}</p>)
+                              reviews.map(r => <SingleReview
+                                   key={r._id}
+                                   review={r}
+                              ></SingleReview>)
                          }
                     </div>
                </section>

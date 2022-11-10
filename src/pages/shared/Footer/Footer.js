@@ -4,7 +4,7 @@ import img from '../../../assets/logo.png';
 
 const Footer = () => {
      return (
-          <div className='max-w-screen-lg mx-auto'>
+          <div className='max-w-screen-lg mx-auto mt-10'>
                <footer className="bg-white dark:bg-gray-900">
                     <div className="container p-6 mx-auto">
                          <div className="lg:flex">
