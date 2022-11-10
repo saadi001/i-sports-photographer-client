@@ -1,10 +1,14 @@
-import React, { useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 
 const Login = () => {
+     const [error, setError] = useState('')
      const {signIn,googlePopUp} = useContext(AuthContext);
-     const navigate = useNavigate()
+     const navigate = useNavigate();
+     const location = useLocation();
+
+     const from = location.state?.from?.pathname || '/'
 
      const handleLogin = (event) =>{
           event.preventDefault();
@@ -15,10 +19,11 @@ const Login = () => {
           signIn(email,password)
           .then(result =>{
                const user = result.user;
-               form.reset();              
+               form.reset(); 
+               navigate(from, {replace: true })             
                console.log(user);
           })
-          .catch(err => console.error(err))
+          .catch(err => setError(err.message))
 
 
      }
@@ -26,7 +31,7 @@ const Login = () => {
           googlePopUp()
           .then(result =>{
                const user = result.user;
-               navigate('/')
+               navigate(from, {replace: true })
                console.log(user)
           })
           .catch(err => console.error(err))
@@ -48,6 +53,7 @@ const Login = () => {
                          </div>
 
                          <input type="password" name='password' className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" required/>
+                         <div className='text-xs'>{error}</div>
                     </div>
 
                     <div className="mt-6">

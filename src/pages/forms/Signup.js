@@ -1,32 +1,37 @@
-import React, { useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 
 const Signup = () => {
+     const [error, setError] = useState('');
      const {createUser,googlePopUp} = useContext(AuthContext)
-     const navigate = useNavigate()
+     const navigate = useNavigate();
+     const location = useLocation();
+
+     const from = location.state?.from?.pathname || '/'
 
      const handleSingUp = (event) =>{
          event.preventDefault();
          const form = event.target;
-         const name = form.name.value;
+     //     const name = form.name.value;
          const email = form.email.value;
          const password = form.password.value;
 
          createUser(email, password)
           .then(result =>{
                const user = result.user;
-               form.reset()
+               form.reset();
+               navigate(from, {replace: true })
                console.log(user)
           })
-          .catch(err => console.error(err))     
+          .catch(err => setError(err.message))     
 
      }
      const googlePopupSignin = () =>{
           googlePopUp()
           .then(result =>{
                const user = result.user;
-               navigate('/')
+               navigate(from, {replace: true })
                console.log(user)
           })
           .catch(err => console.error(err))
@@ -53,6 +58,7 @@ const Signup = () => {
                          </div>
 
                          <input type="password" name='password' className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" />
+                         <div className='text-xs'>{error}</div>
                     </div>
 
                     <div className="mt-6">
