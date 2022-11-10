@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
+import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 
 const ServiceDetails = () => {
      const service = useLoaderData();
+     const {user} = useContext(AuthContext)
+     const [reviews, setReviews] = useState([]);
      const {title, position,price,description,img,_id,rating } = service;
+
+     useEffect(()=>{
+          fetch(`http://localhost:5000/reviews?email=${user?.email}`)
+          .then(res =>res.json())
+          .then(data => setReviews(data))
+
+     },[user?.email])
+
      return (
           <div className='max-w-screen-lg mx-auto my-3  sm:h-auto'>
                <section className='grid gap-3 grid-cols-1 md:grid-cols-3 mx-2 rounded shadow-lg'>
@@ -21,6 +32,11 @@ const ServiceDetails = () => {
                <section>
                     <div className='w-full flex justify-end p-1 border my-3 rounded'>
                          <Link to={`/addReview/${_id}`}><button className='btn btn-warning'>Add review</button></Link>
+                    </div>
+                    <div>
+                         {
+                              reviews.map(review => <p>{review.review}</p>)
+                         }
                     </div>
                </section>
           </div>
