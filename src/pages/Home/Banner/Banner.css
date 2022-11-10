@@ -1,5 +1,4 @@
-.banner{
-     /* background-image: url('../../../assets/banner.jpg'); */
+.banner{     
      background-image:linear-gradient(to bottom, rgba(119, 120, 128, 0.322), rgba(0, 0, 0, 0.89)), url('../../../assets/banner.jpg');
      
      

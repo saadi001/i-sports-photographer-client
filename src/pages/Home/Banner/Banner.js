@@ -9,7 +9,7 @@ const Banner = () => {
 
                <div className='ml-4'>
                <p className='text-white text-4xl md:text-6xl font-bold font-mono '>Sports team <br className='sm:hidden'/> and <br className='hidden sm:inline'/> individual photography</p><br />
-               <button className='text-white bg-teal-600 px-2 py-1 border border-white'>Contact Me</button>
+               <button className='text-white bg-teal-600 hover:bg-teal-700 px-2 py-1 border border-white'>Contact Me</button>
                </div>
 
           </div>
