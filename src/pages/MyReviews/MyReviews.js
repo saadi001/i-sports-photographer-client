@@ -15,9 +15,9 @@ const MyReviews = () => {
      
      
      return (
-          <div className='max-w-screen-lg mx-auto text-center text-2xl font-bold my-3'>
+          <div className='max-w-screen-lg mx-auto  my-3'>
                {
-                    review.length === 0 ? "No reviews found" : <>
+                    review.length === 0 ? <p className='text-center'>No reviews found</p> : <>
                          {review.map(r => <SingleReview 
                          key={r.service}
                          r={r}

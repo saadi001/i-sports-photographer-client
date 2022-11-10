@@ -1,7 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const SingleReviewSingleItem = ({r}) => {
-     const {reviewer,email,review} = r;
+const SingleReviewSingleItem = ({r,handleDelete}) => {
+     const {reviewer,email,review,_id} = r;
+
+     
      return (
           <div className='w-full grid grid-cols-1 sm:grid-cols-4 border shadow-lg p-2 my-5 rounded'>
                <div>
@@ -12,8 +15,8 @@ const SingleReviewSingleItem = ({r}) => {
                     <p>{review}</p>
                </div>
                <div>
-                    <button className='btn btn-info btn-sm mr-2'>Update</button>
-                    <button className='btn btn-error btn-sm'>delete</button>
+                    <Link to={`/update/${_id}`}><button  className='btn btn-info btn-sm mr-2'>Update</button></Link>
+                    <button onClick={()=>handleDelete(_id)} className='btn btn-error btn-sm'>delete</button>
                </div>
                
           </div>

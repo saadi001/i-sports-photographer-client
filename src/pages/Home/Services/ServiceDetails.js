@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { Link, useLoaderData } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 import SingleReviewSingleItem from '../../SingleReview/SingleReviewSingleItem';
@@ -15,6 +16,43 @@ const ServiceDetails = () => {
           .then(data => setReviews(data))
 
      },[service])
+
+     const updateReview = (id) =>{
+          fetch(`http://localhost:5000/reviews/${id}`,{
+               method: "PUT",
+               headers: {
+                    'content-type' : 'application/json'
+               },
+               body: JSON.stringify(reviews)
+
+          })
+          .then(res => res.json())
+          .then(data => {
+               console.log(data)
+               if(data.modifiedCount > 0){
+                    toast.success('Updated successfully')
+               }
+          })
+     }
+
+     const handleDelete = (id) =>{
+          const preceed = window.confirm('Are you sure?')
+          if(preceed){
+               fetch(`http://localhost:5000/reviews/${id}`,{
+                    method: "DELETE"
+               })
+               .then(res => res.json())
+               .then(data => {
+                    console.log(data)
+                    if(data.deletedCount>0){
+                         toast.success('Deleted successfully')
+                         const remaining = reviews.filter(rev => rev._id !== id)
+                         setReviews(remaining)
+                    }
+               })
+          }
+     }
+
 
      return (
           <div className='max-w-screen-lg mx-auto my-3  sm:h-auto'>
@@ -40,6 +78,7 @@ const ServiceDetails = () => {
                               reviews.map(r => <SingleReviewSingleItem
                                    key={r._id}
                                    r={r}
+                                   handleDelete={handleDelete}
                               ></SingleReviewSingleItem>)
                          }
                     </div>
