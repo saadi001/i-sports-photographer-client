@@ -1,20 +1,18 @@
-import React, {  useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import SingleService from './SingleService';
 
-const Services = () => {
+const Allservices = () => {
      const [services,setServices] = useState([]);
-     // console.log(service)
 
      useEffect(()=>{
-          fetch('http://localhost:5000/services')
+          fetch('http://localhost:5000/allServices')
           .then(res => res.json())
           .then(data => setServices(data))
      },[])
      return (
-          <div>
+          <div className='max-w-screen-lg mx-auto'>
                <p className='text-4xl text-center mt-10 font-bold'>Services</p>
-               <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-5 mx-4 sm:mx-2 md:mx-1'>
+               <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-5 mx-4 sm:mx-2 md:mx-4'>
                {
                     services.map(service => <SingleService
                     key={service._id}
@@ -22,9 +20,9 @@ const Services = () => {
                     ></SingleService>)
                }
                </div>
-               <div className='flex justify-center my-3'><Link to='/allService'><button className='btn btn-outline btn-warning'>See all</button></Link></div>
+               
           </div>
      );
 };
 
-export default Services;
+export default Allservices;

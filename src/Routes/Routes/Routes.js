@@ -5,8 +5,10 @@ import Signup from "../../pages/forms/Signup";
 import Updates from "../../pages/forms/Updates";
 import AddReview from "../../pages/Home/AddReview/AddReview";
 import Home from "../../pages/Home/Home/Home";
+import Allservices from "../../pages/Home/Services/Allservices";
 import ServiceDetails from "../../pages/Home/Services/ServiceDetails";
 import MyReviews from "../../pages/MyReviews/MyReviews";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 
 export const router = createBrowserRouter([
@@ -25,7 +27,7 @@ export const router = createBrowserRouter([
                },
                {
                     path: '/addReview/:id',
-                    element: <AddReview></AddReview>,
+                    element: <PrivateRoute><AddReview></AddReview></PrivateRoute>,
                     loader: ({params}) => fetch(`http://localhost:5000/services/${params.id}`)
                },
                {
@@ -44,6 +46,10 @@ export const router = createBrowserRouter([
                     path: '/update/:id',
                     element: <Updates></Updates>,
                     loader: ({params}) => fetch(`http://localhost:5000/services/${params.id}`)
+               },
+               {
+                    path: '/allService',
+                    element: <Allservices></Allservices>
                }
                
           ])
