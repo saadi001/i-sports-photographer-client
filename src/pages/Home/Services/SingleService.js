@@ -13,7 +13,7 @@ const SingleService = ({ service }) => {
                     }</p>
                </div>
 
-               <img className="object-cover w-full  mt-2" src={img} alt="NIKE AIR" />
+               <img className="object-cover h-80 w-full  mt-2" src={img} alt="NIKE AIR" />
 
                <div className="flex items-center justify-between px-4 py-2 bg-gray-900 absolute w-full bottom-0">
                     <h1 className="text-lg font-bold text-white">${price}</h1>

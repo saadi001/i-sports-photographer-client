@@ -3,7 +3,7 @@ import { Link, useLoaderData } from 'react-router-dom';
 
 const ServiceDetails = () => {
      const service = useLoaderData();
-     const {title, position,price,description,img } = service;
+     const {title, position,price,description,img,_id } = service;
      return (
           <div className='max-w-screen-lg mx-auto my-3  sm:h-auto'>
                <section className='grid gap-3 grid-cols-1 md:grid-cols-3 mx-2 rounded shadow-lg'>
@@ -19,7 +19,7 @@ const ServiceDetails = () => {
                </section>
                <section>
                     <div className='w-full flex justify-end p-1 border my-3 rounded'>
-                         <Link to='/addReview'><button className='btn btn-warning'>Add reviews</button></Link>
+                         <Link to={`/addReview/${_id}`}><button className='btn btn-warning'>Add reviews</button></Link>
                     </div>
                </section>
           </div>
