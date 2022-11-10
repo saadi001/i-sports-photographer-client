@@ -1,13 +1,28 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../../assets/logo.png';
+import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 
 const Header = () => {
+     const {user,logOut} = useContext(AuthContext);
      const menuItems = <>
-          <li><a>Item 3</a></li>
-          <li><a>Item 3</a></li>
-          <li><a>Item 3</a></li>
+     <li><Link to='/blog' className='font-semibold'>Blog</Link></li>
+          {
+               user?.uid ?
+               <>
+                    <li><Link className='font-semibold' to='/myReviews'>My reviews</Link></li>
+                    <li><Link className='font-semibold' to='/addService'>Add service</Link></li>
+               </>:
+               <li><Link to='/signup' className='font-semibold'>Signup</Link></li>
+          }
      </>
+
+     const handleLogout = () =>{
+          logOut()
+          .then()
+          .catch(err => console.error(err))
+
+     }
 
      return (
           <div className="navbar bg-base-100 shadow-lg">
@@ -29,7 +44,12 @@ const Header = () => {
                     </ul>
                </div>
                <div className="navbar-end">
-                    <Link className="btn mr-2">log in</Link>
+                    {
+                         user?.uid ?
+                         <button onClick={handleLogout} className='btn mr-2 text-sm '>log out</button>
+                         :
+                         <Link to='login' className="btn mr-2">log in</Link>
+                    }
                </div>
           </div>
      );
