@@ -1,20 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
-import SingleReview from '../../SingleReview/SingleReview';
+import SingleReviewSingleItem from '../../SingleReview/SingleReviewSingleItem';
 
 const ServiceDetails = () => {
-     const service = useLoaderData();
+     const services = useLoaderData();
      const {user} = useContext(AuthContext)
      const [reviews, setReviews] = useState([]);
-     const {title, position,price,description,img,_id,rating } = service;
+     const {title, position,price,description,img,_id,rating,service } = services;
 
      useEffect(()=>{
-          fetch(`http://localhost:5000/reviews?_id=${_id}`)
+          fetch(`http://localhost:5000/reviews?service=${service}`)
           .then(res =>res.json())
           .then(data => setReviews(data))
 
-     },[_id])
+     },[service])
 
      return (
           <div className='max-w-screen-lg mx-auto my-3  sm:h-auto'>
@@ -37,10 +37,10 @@ const ServiceDetails = () => {
                     </div>
                     <div>
                          {
-                              reviews.map(r => <SingleReview
+                              reviews.map(r => <SingleReviewSingleItem
                                    key={r._id}
-                                   review={r}
-                              ></SingleReview>)
+                                   r={r}
+                              ></SingleReviewSingleItem>)
                          }
                     </div>
                </section>

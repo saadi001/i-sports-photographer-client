@@ -1,8 +1,7 @@
 import React from 'react';
 
-const SingleReview = ({r}) => {
-     const {reviewer,email,review,serviceName} = r;
-     console.log(r)
+const SingleReviewSingleItem = ({r}) => {
+     const {reviewer,email,review} = r;
      return (
           <div className='w-full grid grid-cols-1 sm:grid-cols-4 border shadow-lg p-2 my-5 rounded'>
                <div>
@@ -13,11 +12,12 @@ const SingleReview = ({r}) => {
                     <p>{review}</p>
                </div>
                <div>
-                    <p>{serviceName}</p>
+                    <button className='btn btn-info btn-sm mr-2'>Update</button>
+                    <button className='btn btn-error btn-sm'>delete</button>
                </div>
                
           </div>
      );
 };
 
-export default SingleReview;
+export default SingleReviewSingleItem;
