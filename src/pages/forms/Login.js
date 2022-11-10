@@ -1,24 +1,43 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 
 const Login = () => {
+     const {signIn} = useContext(AuthContext)
+
+     const handleLogin = (event) =>{
+          event.preventDefault();
+          const form = event.target;
+          const email = form.email.value;
+          const password = form.password.value;
+
+          signIn(email,password)
+          .then(result =>{
+               const user = result.user;
+               form.reset();              
+               console.log(user);
+          })
+          .catch(err => console.error(err))
+
+
+     }
      return (
           <div className="w-full max-w-sm p-6 m-auto mx-auto bg-white rounded-md shadow-md dark:bg-gray-800 my-5">
                <h1 className="text-3xl font-semibold text-center text-gray-700 dark:text-white">Login!</h1>
 
-               <form className="mt-6">
+               <form onSubmit={handleLogin} className="mt-6">
                     <div>
-                         <label for="username" className="block text-sm text-gray-800 dark:text-gray-200">Email</label>
-                         <input type="email" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" />
+                         <label  className="block text-sm text-gray-800 dark:text-gray-200">Email</label>
+                         <input type="email" name='email' className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" />
                     </div>
 
                     <div className="mt-4">
                          <div className="flex items-center justify-between">
-                              <label for="password" className="block text-sm text-gray-800 dark:text-gray-200">Password</label>
+                              <label className="block text-sm text-gray-800 dark:text-gray-200">Password</label>
 
                          </div>
 
-                         <input type="password" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" />
+                         <input type="password" name='password' className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" />
                     </div>
 
                     <div className="mt-6">
