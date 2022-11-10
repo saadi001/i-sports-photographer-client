@@ -6,7 +6,7 @@ import SingleReviewSingleItem from '../../SingleReview/SingleReviewSingleItem';
 
 const ServiceDetails = () => {
      const services = useLoaderData();
-     const {user} = useContext(AuthContext)
+     // const {user} = useContext(AuthContext)
      const [reviews, setReviews] = useState([]);
      const {title, position,price,description,img,_id,rating,service } = services;
 

@@ -6,7 +6,7 @@ import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 const Header = () => {
      const {user,logOut} = useContext(AuthContext);
      const menuItems = <>
-     <li><Link to='/blog' className='font-semibold'>Blog</Link></li>
+     
           {
                user?.uid ?
                <>
@@ -15,6 +15,7 @@ const Header = () => {
                </>:
                <li><Link to='/signup' className='font-semibold'>Signup</Link></li>
           }
+          <li><Link to='/blogs' className='font-semibold'>Blog</Link></li>
      </>
 
      const handleLogout = () =>{
