@@ -11,14 +11,14 @@ const ServiceDetails = () => {
      const {title, position,price,description,img,_id,rating,service } = services;
 
      useEffect(()=>{
-          fetch(`http://localhost:5000/reviews?service=${service}`)
+          fetch(`https://i-sports-photographer-server.vercel.app/reviews?service=${service}`)
           .then(res =>res.json())
           .then(data => setReviews(data))
 
      },[service])
 
      const updateReview = (id) =>{
-          fetch(`http://localhost:5000/reviews/${id}`,{
+          fetch(`https://i-sports-photographer-server.vercel.app/reviews/${id}`,{
                method: "PUT",
                headers: {
                     'content-type' : 'application/json'
@@ -38,7 +38,7 @@ const ServiceDetails = () => {
      const handleDelete = (id) =>{
           const preceed = window.confirm('Are you sure?')
           if(preceed){
-               fetch(`http://localhost:5000/reviews/${id}`,{
+               fetch(`https://i-sports-photographer-server.vercel.app/reviews/${id}`,{
                     method: "DELETE"
                })
                .then(res => res.json())

@@ -1,14 +1,32 @@
+import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
+import Loading from '../../Loading/Loading';
 import SingleService from './SingleService';
 
 const Allservices = () => {
-     const [services,setServices] = useState([]);
+     // const [services,setServices] = useState([]);
 
-     useEffect(()=>{
-          fetch('http://localhost:5000/allServices')
-          .then(res => res.json())
-          .then(data => setServices(data))
-     },[])
+     // useEffect(()=>{
+     //      fetch('https://i-sports-photographer-server.vercel.app/allServices')
+     //      .then(res => res.json())
+     //      .then(data => setServices(data))
+     // },[])
+     const {data:services, isLoading} = useQuery({
+          queryKey: ['allservice'],
+          queryFn: async()=>{
+               const res = await fetch('https://i-sports-photographer-server.vercel.app/allServices')
+               const data = await res.json()
+               return data;
+          }
+     })
+
+     if(isLoading){
+          return (
+               <div className='mt-5'>
+                    <Loading></Loading>
+               </div>
+          )
+     }
      return (
           <div className='max-w-screen-lg mx-auto'>
                <p className='text-4xl text-center mt-10 font-bold'>Services</p>

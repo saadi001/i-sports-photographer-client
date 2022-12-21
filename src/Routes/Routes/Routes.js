@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../../Layout/Main";
+import AddService from "../../pages/AddService/AddService";
 import Blogs from "../../pages/Blogs/Blogs";
 import Login from "../../pages/forms/Login";
 import Signup from "../../pages/forms/Signup";
@@ -9,6 +10,7 @@ import Home from "../../pages/Home/Home/Home";
 import Allservices from "../../pages/Home/Services/Allservices";
 import ServiceDetails from "../../pages/Home/Services/ServiceDetails";
 import MyReviews from "../../pages/MyReviews/MyReviews";
+import NotFound from "../../pages/NotFound/NotFound";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 
@@ -24,12 +26,12 @@ export const router = createBrowserRouter([
                {
                     path: '/services/:id',
                     element: <ServiceDetails></ServiceDetails>,
-                    loader: ({params}) => fetch(`http://localhost:5000/services/${params.id}`)
+                    loader: ({params}) => fetch(`https://i-sports-photographer-server.vercel.app/services/${params.id}`)
                },
                {
                     path: '/addReview/:id',
                     element: <PrivateRoute><AddReview></AddReview></PrivateRoute>,
-                    loader: ({params}) => fetch(`http://localhost:5000/services/${params.id}`)
+                    loader: ({params}) => fetch(`https://i-sports-photographer-server.vercel.app/services/${params.id}`)
                },
                {
                     path: '/login',
@@ -46,7 +48,7 @@ export const router = createBrowserRouter([
                {
                     path: '/update/:id',
                     element: <Updates></Updates>,
-                    loader: ({params}) => fetch(`http://localhost:5000/services/${params.id}`)
+                    loader: ({params}) => fetch(`https://i-sports-photographer-server.vercel.app/services/${params.id}`)
                },
                {
                     path: '/allService',
@@ -55,12 +57,16 @@ export const router = createBrowserRouter([
                {
                     path: '/blogs',
                     element: <Blogs></Blogs>
+               },
+               {
+                    path: '/addService',
+                    element: <AddService></AddService>
                }
                
           ])
      },
      {
           path: '*', 
-          
+          element: <NotFound></NotFound>
      }
 ])

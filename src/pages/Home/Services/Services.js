@@ -1,16 +1,32 @@
+import { useQuery } from '@tanstack/react-query';
 import React, {  useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Loading from '../../Loading/Loading';
 import SingleService from './SingleService';
 
 const Services = () => {
-     const [services,setServices] = useState([]);
+     // const [services,setServices] = useState([]);
      // console.log(service)
 
-     useEffect(()=>{
-          fetch('http://localhost:5000/services')
-          .then(res => res.json())
-          .then(data => setServices(data))
-     },[])
+     const {data: services, isLoading} = useQuery({
+          queryKey: ['services'],
+          queryFn: async() =>{
+               const res = await fetch('https://i-sports-photographer-server.vercel.app/services');
+               const data = await res.json();
+               return data;
+          }
+     })
+
+     // useEffect(()=>{
+     //      fetch('https://i-sports-photographer-server.vercel.app/services')
+     //      .then(res => res.json())
+     //      .then(data => setServices(data))
+     // },[])
+
+     if(isLoading){
+          return <Loading></Loading>
+     }
+
      return (
           <div>
                <p className='text-4xl text-center mt-10 font-bold'>Services</p>

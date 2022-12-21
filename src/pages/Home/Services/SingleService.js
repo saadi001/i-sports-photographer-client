@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const SingleService = ({ service }) => {
      const { title, position,price,description,img,_id } = service;
-     console.log(service)
+     
      return (
           <div className="overflow-hidden bg-white rounded-lg border shadow-lg dark:bg-gray-800 relative">
                <div className="px-4 py-2">
